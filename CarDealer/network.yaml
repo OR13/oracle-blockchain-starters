@@ -1,0 +1,85 @@
+name: Sidetree
+x-type: hlfv1
+description: 'The connection profile of OBCS instance'
+version: '1.0'
+client:
+  organization: Sidetree
+  credentialStore:
+    path: /tmp/hfc-kvs
+    cryptoStore:
+      path: /tmp/hfc-cvs
+channels:
+  default:
+    orderers:
+      - Sidetreeorderer0
+    peers:
+      Sidetreepeer0:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+      Sidetreepeer1:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+organizations:
+  Sidetree:
+    mspid: Sidetree
+    peers:
+      - Sidetreepeer0
+      - Sidetreepeer1
+    certificateAuthorities:
+      - Sidetreeca
+    adminPrivateKey:
+      path: ../artifacts/crypto/peerOrganizations/Sidetree/keystore/Sidetree-key.pem
+    signedCert:
+      path: ../artifacts/crypto/peerOrganizations/Sidetree/signcert/Sidetree-signcert.pem
+orderers:
+  Sidetreeorderer0:
+    url: 'grpcs://126B6045A992451F8F9DBEDD684BB4EE-private.blockchain.ocp.oraclecloud.com:7301'
+    grpcOptions:
+      ssl-target-name-override: 126B6045A992451F8F9DBEDD684BB4EE-private.blockchain.ocp.oraclecloud.com
+      grpc-max-send-message-length: -1
+    tlsCACerts:
+      path: ../artifacts/crypto/ordererOrganizations/Sidetree/tlscacert/Sidetree-tlscacert.pem
+peers:
+  Sidetreepeer0:
+    url: 'grpcs://126B6045A992451F8F9DBEDD684BB4EE-private.blockchain.ocp.oraclecloud.com:7100'
+    grpcOptions:
+      ssl-target-name-override: 126B6045A992451F8F9DBEDD684BB4EE-private.blockchain.ocp.oraclecloud.com
+      grpc-max-send-message-length: -1
+    tlsCACerts:
+      path: ../artifacts/crypto/peerOrganizations/Sidetree/tlscacert/Sidetree-tlscacert.pem
+  Sidetreepeer1:
+    url: 'grpcs://126B6045A992451F8F9DBEDD684BB4EE-private.blockchain.ocp.oraclecloud.com:7102'
+    grpcOptions:
+      ssl-target-name-override: 126B6045A992451F8F9DBEDD684BB4EE-private.blockchain.ocp.oraclecloud.com
+      grpc-max-send-message-length: -1
+    tlsCACerts:
+      path: ../artifacts/crypto/peerOrganizations/Sidetree/tlscacert/Sidetree-tlscacert.pem
+certificateAuthorities:
+  Sidetreeca:
+    url: 'https://0CE77B48383541109C491963CB43CF4C.blockchain.ocp.oraclecloud.com:443'
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../artifacts/crypto/peerOrganizations/Sidetree/tlscacert/Sidetree-tlscacert.pem
+    registrar:
+      -
+        enrollId: orie@transmute.industries
+        enrollSecret: '***'
+    caName: Sidetreeca
+RESTProxies:
+  Sidetreerestproxy1:
+    url: 'https://0CE77B48383541109C491963CB43CF4C.blockchain.ocp.oraclecloud.com:443/restproxy1'
+    channels: {}
+  Sidetreerestproxy2:
+    url: 'https://0CE77B48383541109C491963CB43CF4C.blockchain.ocp.oraclecloud.com:443/restproxy2'
+    channels: {}
+  Sidetreerestproxy3:
+    url: 'https://0CE77B48383541109C491963CB43CF4C.blockchain.ocp.oraclecloud.com:443/restproxy3'
+    channels: {}
+  Sidetreerestproxy4:
+    url: 'https://0CE77B48383541109C491963CB43CF4C.blockchain.ocp.oraclecloud.com:443/restproxy4'
+    channels: {}
